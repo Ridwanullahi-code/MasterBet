@@ -1,24 +1,21 @@
 import * as cheerio from 'cheerio';
-// import axios from 'axios';
+import axios from 'axios';
+import { Parser } from '@json2csv/plainjs';
 
-// const URL = 'https://www.number49s.co.za/number-49s-hot-picks';
-
-// async function scrapeData() {
-//   const response = await axios.get(URL);
-//   const $ = cheerio.load(response.data);
-//   const data = $('#random-ball-1').text();
-//   console.log(data);
-// }
-
-const URL = 'https://www.number49s.co.za/number-49s-hot-picks';
+const URL = 'https://uk49sresultstoday.co.za/';
+const result = [];
 async function scrapeData() {
-    const response = await fetch(URL, {
-        mode: "no-cors"
-    });
-    const result = await response.text();
-    console.log(result);
-    const $ = cheerio.load(response);
-    const data = $('#random-ball-1').text();
-    console.log(data);  
+    axios.get(URL)
+  .then(response => {
+    const $ = cheerio.load(response.data);
+    const title = $('.elementor-col-12').text();
+      const re = title.replace(/(\r\n|\n|\r)/gm, "").split(' ').slice(0, 7);
+      const opts = {};
+      const parser = new Parser(opts);
+      const csv = parser.parse({ re } );
+      console.log(csv);
+  })
+    .catch(console.error);
+    return result;
 }
 export default scrapeData;
