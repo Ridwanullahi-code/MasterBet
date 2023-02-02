@@ -12,6 +12,7 @@
     "airbnb": "0.0.2",
     "axios": "^1.2.1",
     "cheerio": "^1.0.0-rc.12",
+    "fs": "0.0.1-security",
     "luxon": "^3.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -45,6 +46,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
