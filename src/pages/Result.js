@@ -6,11 +6,13 @@ import Input from '../components/Input';
 import { CalendarDaysIcon } from '@heroicons/react/24/solid'
 import scrapeData from '../functions/fetch';
 
+
 const Result = () => {
     const [scrape, getScrape] = useState([])
+
     useEffect(() => {
     scrapeData().then((data) => {
-        getScrape(data[0])
+        getScrape(data[0]);
     });
     }, [])
 
@@ -25,7 +27,8 @@ const Result = () => {
                     
                 </div>
                 <div className="flex flex-col space-y-3">
-                    <ResultCard data={ scrape} />
+                    <ResultCard data={scrape[0]} title="LunchTime"/>
+                    <ResultCard data={scrape[1]} title="Teatime"/>
                 </div>
                 <Input />
             </div>
