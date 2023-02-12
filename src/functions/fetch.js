@@ -10,7 +10,7 @@ async function scrapeData() {
     const title = $('.elementor-col-12').text();
     const lunch = title.replace(/(\r\n|\n|\r)/gm, "").split(' ').slice(0, 7);
     const teatime = title.replace(/(\r\n|\n|\r)/gm, "").split(' ').slice(7, 14);
-    object.push(new Array(lunch, teatime));
+    object.push([lunch, teatime]);
   })
   .catch(console.error);
   return object;

@@ -8,13 +8,12 @@ import scrapeData from '../functions/fetch';
 
 
 const Result = () => {
-    const [lunch, getLunch] = useState([])
-    const [teatime, getTeatime] = useState([])
-
+    const [scrape, getScrape] = useState([])
+    const title = ['Lunchtime', 'Teatime'];
+    
     useEffect(() => {
     scrapeData().then((data) => {
-        getLunch(data[0][0]);
-        getTeatime(data[0][1]);
+        getScrape(data[0]);
     });
     }, [])
 
@@ -29,14 +28,14 @@ const Result = () => {
                     
                 </div>
                 <div className="flex flex-col space-y-3">
-                    <ResultCard data={lunch} title="LunchTime"/>
-                    <ResultCard data={teatime} title="Teatime"/>
+                    {scrape.map((d, index) => (
+                        <ResultCard data={d} title={title[index]} key={index} />
+                    ))}
                 </div>
                 <Input />
             </div>
             <Footer />
         </section>
-        
     )
 }
 

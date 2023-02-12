@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { DateTime } from "luxon";
 
-const ResultCard = ({ title, data }) => {
+const ResultCard = ({ title, data, key }) => {
     const now = DateTime.now().toLocaleString(DateTime.DATETIME_MED);
     const dt = now.split(',').splice(0, 2).join(',')
   return (
@@ -13,7 +13,7 @@ const ResultCard = ({ title, data }) => {
         <div className='flex justify-end items-center'>
             <p className="font-bold">Bonus</p>
         </div>
-        <div className='flex space-x-1 md:space-x-6'>
+        <div className='flex space-x-1 md:space-x-6' key={key}>
             <span className='draw circle Blue'>{data[0]}</span>
             <span className='draw circle green'>{data[1]}</span>
             <span className='draw circle deepRed'>{data[2]}</span>
@@ -29,5 +29,6 @@ const ResultCard = ({ title, data }) => {
 ResultCard.propTypes = {
   title: PropTypes.string.isRequired,
   data: PropTypes.array.isRequired,
+  key: PropTypes.string.isRequired,
 };
 export default ResultCard
