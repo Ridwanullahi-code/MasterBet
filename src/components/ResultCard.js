@@ -4,7 +4,6 @@ import { DateTime } from "luxon";
 const ResultCard = ({ title, data }) => {
     const now = DateTime.now().toLocaleString(DateTime.DATETIME_MED);
     const dt = now.split(',').splice(0, 2).join(',')
-  console.log(data.Lunchtime);
   return (
     <div className='relative bg-white p-4 px-2 md:px-6 border rounded-3 space-y-3 shadow'>
         <div className='flex justify-between items-center'>
