@@ -1,10 +1,19 @@
+import { useEffect, useState } from 'react';
 import ResultCard from "../components/ResultCard"
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Input from '../components/Input';
 import { CalendarDaysIcon } from '@heroicons/react/24/solid'
+import scrapeData from '../functions/fetch';
 
 const Result = () => {
+    const [scrape, getScrape] = useState([])
+    useEffect(() => {
+    scrapeData().then((data) => {
+        getScrape(data[0])
+    });
+    }, [])
+
     return (
         <section className="bg-gray-100">
             <Navbar />
@@ -16,9 +25,7 @@ const Result = () => {
                     
                 </div>
                 <div className="flex flex-col space-y-3">
-                    <ResultCard />
-                    <ResultCard />
-                    <ResultCard />
+                    <ResultCard data={ scrape} />
                 </div>
                 <Input />
             </div>

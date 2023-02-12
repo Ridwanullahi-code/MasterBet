@@ -1,10 +1,8 @@
 import React from 'react'
 import Sidebar from '../Admin/Sidebar';
 import { Outlet } from 'react-router-dom';
-import scrapeData from '../functions/fetch';
 
 const Admin = () => {
-    scrapeData();
     return (
         <div className='flex'>
             <Sidebar />
