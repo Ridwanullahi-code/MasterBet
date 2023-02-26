@@ -9,6 +9,7 @@ import { data } from '../functions/data'
 
 const Home = () => {
   const dt = DateTime.now().toLocaleString();
+
   return (
     <>
       <Navbar />

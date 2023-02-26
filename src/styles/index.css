@@ -50,3 +50,18 @@
 .register{
     margin:60px auto;
 }
+
+.neutral {
+    color: #0F3354;
+}
+.bg-neutral{
+    background-color: #f8f8ff;
+}
+
+.display{
+    display: flex;
+}
+
+.hidden{
+    display: none;
+}
