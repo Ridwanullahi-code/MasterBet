@@ -12,7 +12,7 @@ const Result = () => {
     const title = ['Lunchtime', 'Teatime'];
     
     useEffect(() => {
-    scrapeData().then((data) => {
+        scrapeData().then((data) => {
         getScrape(data[0]);
     });
     }, [])

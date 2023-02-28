@@ -16,6 +16,7 @@ const Predict = () => {
     useEffect(() => {
         let mounted = true;
         getAPI().then((item) => {
+            setValue(item);
         if (mounted) {
             setValue(item)
         }
@@ -24,9 +25,23 @@ const Predict = () => {
     }, [])
 
     const dt = DateTime.now().toISO().slice(0, 10);
+    const ys = `${dt.slice(0, 8)}${dt.slice(8, 10) - 1}`;
+    
+    let selected;
+    if (value.length > 0) {
+        value.forEach((item) => {
+            if (item.date === dt) {
+                selected = item
+            } else if (item.date === ys) {
+               selected = item 
+            } else {
+                selected = []
+            }
+        })
+    }
 
-    const selected = value.length > 0 ? value.filter((obj) => obj.date === dt) : []
-    const item = selected[0]?.predict.split(',')
+    const item = selected?.predict.split(',')
+
     return (
         <div>
             <div className="my-3 bg-white shadow space-y-4 py-4 border rounded-lg h-50 max-w-1 mx-5 md:mx-10

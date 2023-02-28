@@ -11,21 +11,36 @@ const getAPI = async() => {
   .then((response) => response.data)
 }
 const Pick = ({ head, title, text, summary }) => {
-    const dt = DateTime.now().toISO().slice(0, 10);
-    const [value, setValue] = useState([]) 
+    const [value, setValue] = useState([])
 
     useEffect(() => {
         let mounted = true;
         getAPI().then((item) => {
+            setValue(item);
         if (mounted) {
             setValue(item)
         }
         })
         return () => (mounted = false);
-    }, []) 
-  
-    const selected = value.length > 0 ? value.filter((obj) => obj.date === dt) : []
-    const data = selected[0]?.predict.split(',')
+    }, [])
+
+    const dt = DateTime.now().toISO().slice(0, 10);
+    const ys = `${dt.slice(0, 8)}${dt.slice(8, 10) - 1}`;
+    
+    let selected;
+    if (value.length > 0) {
+        value.forEach((item) => {
+            if (item.date === dt) {
+                selected = item
+            } else if (item.date === ys) {
+               selected = item 
+            } else {
+                selected = []
+            }
+        })
+    }
+
+    const data = selected?.predict.split(',')
     
   return (
     <div className='pick bg mx-auto'>
@@ -39,7 +54,7 @@ const Pick = ({ head, title, text, summary }) => {
                   ))}
               </ul>
               <p>{summary}</p>
-         <Button value="Bet Here" />
+        <Button value="Bet Here" />
           <hr className='bg-gray-200'/>
       </div>
       <div className="px-3 py-3 space-y-4">
