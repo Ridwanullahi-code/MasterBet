@@ -16,7 +16,6 @@ const Predict = () => {
     useEffect(() => {
         let mounted = true;
         getAPI().then((item) => {
-            setValue(item);
         if (mounted) {
             setValue(item)
         }
