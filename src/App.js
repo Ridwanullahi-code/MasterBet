@@ -22,7 +22,7 @@ function App() {
         <Route path="/message" element={<Message />} />
           <Route path="/admin" element={<Layout />}>
             <Route index element={<Dashboard />} />
-            <Route path='email' element={<User />} />
+            <Route path='phone' element={<User />} />
             <Route path='predict-1' element={<Predict />} />
             <Route path='predict-2' element={<HomePredict /> } />
           </Route>

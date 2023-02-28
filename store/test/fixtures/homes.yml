@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2023-02-27
+  predict: MyString
+
+two:
+  date: 2023-02-27
+  predict: MyString

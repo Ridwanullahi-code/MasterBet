@@ -11,7 +11,7 @@ const ResultCard = ({ title, data, key }) => {
             <p style= {{color:"#696969", fontSize:"13px"}}>show in drawn order</p>
         </div>
         <div className='flex justify-end items-center'>
-            <p className="font-bold">Bonus</p>
+          <p className="font-bold">Bonus</p>
         </div>
         <div className='flex space-x-1 md:space-x-6' key={key}>
             <span className='draw circle Blue'>{data[0]}</span>

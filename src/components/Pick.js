@@ -1,8 +1,32 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types';
 import Button from '../components/Button';
+import { DateTime } from "luxon";
+import axios from 'axios';
 
-const Pick = ({head, title, text, summary}) => {
+const URL = 'http://localhost:3000/api/v1/homes';
+
+const getAPI = async() => {
+  return await axios.get(URL)
+  .then((response) => response.data)
+}
+const Pick = ({ head, title, text, summary }) => {
+    const dt = DateTime.now().toISO().slice(0, 10);
+    const [value, setValue] = useState([]) 
+
+    useEffect(() => {
+        let mounted = true;
+        getAPI().then((item) => {
+        if (mounted) {
+            setValue(item)
+        }
+        })
+        return () => (mounted = false);
+    }, []) 
+  
+    const selected = value.length > 0 ? value.filter((obj) => obj.date === dt) : []
+    const data = selected[0]?.predict.split(',')
+    
   return (
     <div className='pick bg mx-auto'>
           <h1 className='head px-3 py-4 font-bold text-lg'>{head}</h1>
@@ -10,10 +34,9 @@ const Pick = ({head, title, text, summary}) => {
               <h2 className='font-bold'>{title}</h2>
               <p className='text-gray-600 text-sm'>{text}</p>
               <ul className="hot_picks flex space-x-4">
-                  <li className="list circle draw">24</li>
-                  <li className="list circle draw">62</li>
-                  <li className="list circle draw">1</li>
-                  <li className="list circle draw">4</li>
+                  {data && data.map((item, index) => (
+                      <li key={ index} className="list circle draw">{item}</li>
+                  ))}
               </ul>
               <p>{summary}</p>
          <Button value="Bet Here" />
@@ -23,10 +46,9 @@ const Pick = ({head, title, text, summary}) => {
               <h2 className='font-bold'>{title}</h2>
               <p className='text-gray-600 text-sm'>{text}</p>
               <ul className="hot_picks flex space-x-4">
-                  <li className="list draw circle">24</li>
-                  <li className="list draw circle">62</li>
-                  <li className="list draw circle">1</li>
-                  <li className="list draw circle">4</li>
+                {data && data.map((item, index) => (
+                    <li key={ index} className="list circle draw">{item}</li>
+                ))}
               </ul>
               <p>{summary}</p>
               <Button value="Bet Here" />

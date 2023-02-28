@@ -1,4 +1,4 @@
-import React from 'react'
+import React  from 'react'
 import { DateTime } from "luxon";
 import Navbar from '../components/Navbar'
 import Input from '../components/Input'
@@ -6,10 +6,10 @@ import Card from '../components/Card'
 import Pick from '../components/Pick'
 import Footer from '../components/Footer'
 import { data } from '../functions/data'
-
+ 
 const Home = () => {
   const dt = DateTime.now().toLocaleString();
-
+  
   return (
     <>
       <Navbar />
@@ -29,7 +29,7 @@ const Home = () => {
         />
       </div>
       <div className='grid space-y-6 md:space-y-0 md:grid-cols-3 lg:grid-cols:3 xl:grid-cols-3 justify-center items-center md:space-x-2'>
-         {data.map((item) => ( 
+         {data && data.map((item) => ( 
         <Card key={item.id} color={item.color } title={item.title} heading={item.heading} text={item.text} />
       ))}
         </div>

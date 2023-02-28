@@ -1,6 +1,32 @@
-import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { DateTime } from "luxon";
+import axios from 'axios';
+import Random from './Random'; 
 
-const Predict = ({ array }) => {  
+const API = "http://127.0.0.1:3000/api/v1/predictions";
+
+const getAPI = async() => {
+  return await axios.get(API)
+  .then((response) => response.data)
+}
+
+const Predict = () => {
+    const [value, setValue] = useState([])
+
+    useEffect(() => {
+        let mounted = true;
+        getAPI().then((item) => {
+        if (mounted) {
+            setValue(item)
+        }
+        })
+        return () => (mounted = false);
+    }, [])
+
+    const dt = DateTime.now().toISO().slice(0, 10);
+
+    const selected = value.length > 0 ? value.filter((obj) => obj.date === dt) : []
+    const item = selected[0]?.predict.split(',')
     return (
         <div>
             <div className="my-3 bg-white shadow space-y-4 py-4 border rounded-lg h-50 max-w-1 mx-5 md:mx-10
@@ -9,36 +35,32 @@ const Predict = ({ array }) => {
             <date className="font-bold">Jan 05, 2023</date>
             <div className="space-y-2">
                 <p>Prediction 1</p>
-                <ul className="flex space-x-3 md:space-x-1 lg:space-x-5">
-                    <li className="circle draw green shadow">{array[0][0]}</li>
-                    <li className="circle draw purple shadow">{array[0][1]}</li>
-                    <li className="circle draw Blue shadow">{array[0][2]}</li>
-                    <li className="circle draw yellow shadow">{array[0][3]}</li>
-                    <li className="circle draw deepRed shadow">{array[0][4]}</li>     
-            </ul>
+                { item && 
+                    <ul className="flex space-x-3 md:space-x-1 lg:space-x-5">
+                    <li className="circle draw green shadow">{item[0]}</li>
+                    <li className="circle draw purple shadow">{item[1]}</li>
+                    <li className="circle draw Blue shadow">{item[2]}</li>
+                    <li className="circle draw yellow shadow">{item[3]}</li>
+                    <li className="circle draw deepRed shadow">{item[4]}</li> 
+                    </ul>
+                }    
             </div>
             <div>
                 <p>Prediction 2</p>
-                <ul className="flex space-x-3 md:space-x-1 lg:space-x-5">
-               <li className="draw circle Blue shadow">{array[1][0]}</li>
-               <li className="draw circle yellow shadow">{array[1][1]}</li>
-               <li className="draw circle deepRed shadow">{array[1][2]}</li>
-               <li className="draw circle purple shadow">{array[1][3]}</li>
-               <li className="draw circle green shadow">{array[1][4]}</li> 
-            </ul>
-            <div className="flex items-center justify-center pt-6 space-x-2">
-            <p className="font-bold">Booster Ball:</p>
-            <p className="circle draw yellow">24</p>
+                {item &&
+                <ul className="flex space-x-3 md:space-x-1 lg:space-x-5 my-3">
+                <li className="draw circle Blue shadow">{item[5]}</li> 
+                <li className="draw circle yellow shadow">{item[6]}</li>
+                <li className="draw circle deepRed shadow">{item[7]}</li>
+                <li className="draw circle purple shadow">{item[8]}</li>
+                <li className="draw circle green shadow">{item[9]}</li>
+            </ul> 
+            } 
             </div>
             </div>
-            </div>
+            <Random array={item && item } />
         </div>
     )
 }
-
-// props validation should be propTypes
-Predict.propTypes = {
-    array: PropTypes.arrayOf.isRequired,
-};
 
 export default Predict;

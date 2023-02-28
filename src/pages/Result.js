@@ -16,7 +16,7 @@ const Result = () => {
         getScrape(data[0]);
     });
     }, [])
-
+    
     return (
         <section className="bg-gray-100">
             <Navbar />
@@ -28,7 +28,7 @@ const Result = () => {
                     
                 </div>
                 <div className="flex flex-col space-y-3">
-                    {scrape.map((d, index) => (
+                    {scrape && scrape.map((d, index) => (
                         <ResultCard data={d} title={title[index]} key={index} />
                     ))}
                 </div>

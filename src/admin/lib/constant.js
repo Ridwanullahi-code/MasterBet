@@ -31,9 +31,9 @@ export const DASHBOARD_SIDEBAR_LINKS = [
 	},
 	
 	{
-		key: 'email',
-		label: 'Email',
-		path: 'email',
+		key: 'phone',
+		label: 'Phone',
+		path: 'phone',
 		icon: <HiOutlineAnnotation />
 	}
 ]
