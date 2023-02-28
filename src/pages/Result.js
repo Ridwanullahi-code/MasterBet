@@ -12,14 +12,9 @@ const Result = () => {
     const title = ['Lunchtime', 'Teatime'];
     
     useEffect(() => {
-        let mounted = true;
         scrapeData().then((data) => {
-            if (mounted) {
-                getScrape(data[0]);
-                
-        }
+            getScrape(data[0]);    
         });
-        return () => (mounted = false);
     }, [])
     
     return (
